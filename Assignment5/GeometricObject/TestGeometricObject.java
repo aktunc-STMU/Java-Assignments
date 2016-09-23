@@ -29,3 +29,6 @@ public class TestGeometricObject {
 		scan.close();
 	}
 }
+
+/*I know we only had to compare the Area but I wanted to compare all the  characteristic of the Objects
+On line 27 i wanted to compare the color with out cby calling out the method from the GeometricObjectclass but i dont know if the method i reading the color fromt the sub classes (Rectangle & Circle) because it does not allow me to cal them out like i had in the previous two comparisons. I know I could have created two variables in this class (ex: String circleColor; and String rectangleColor) and then have written compareColor(circleColor, rectangleColor); but that woudl have not used the variables for color in the other classes. How could i have written this?? */
