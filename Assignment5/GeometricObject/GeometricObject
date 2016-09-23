@@ -1,0 +1,23 @@
+
+public abstract class GeometricObject implements Comparable{
+	private String color;
+
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public boolean compareColor(String cColor, String rColor){
+		boolean truth= cColor==rColor;
+		return truth;
+	}
+	public boolean compareArea(double cArea, double rArea){
+		boolean truth= cArea==rArea;
+		return truth;
+	}
+	public boolean comparePerimeter(double cPerimeter, double rPerimeter){
+		boolean truth= cPerimeter==rPerimeter;
+		return truth;
+	}
+}
