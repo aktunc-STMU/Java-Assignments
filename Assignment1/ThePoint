@@ -1,0 +1,41 @@
+
+public class ThePoint {
+	int x;
+	int y;
+	
+	public ThePoint(){
+		x=0;
+		y=0;
+	}
+	
+	public ThePoint( int x, int y){
+		this.x= x;
+		this.y= y;
+	}
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public double distance (int x1, int y1, int x2, int y2){
+		double distance;
+		distance = Math.sqrt( (Math.pow((x2-x1), 2)+ Math.pow((y2-y1), 2)) );
+		return distance;
+	}
+	/* It would be better to write the distance using public double distance(p2) {  
+	
+	you can use p1.distance(p2); This may be the most object-oriented way to write this program as no static methods are used.
+	
+	If you do it the way you did it above, you should make it static:
+	
+	public static double distance(int x1, int y1, int x2, int y2) {
+	*/
+}
