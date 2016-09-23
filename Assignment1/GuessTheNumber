@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class GuessTheNumber {
+	public static void main (String []args){
+		Scanner guess= new Scanner (System.in);
+		int computedNumber;
+		int counter =0;
+		int playerGuess;
+			
+		computedNumber = 1+(int)(Math.random() * 1000);
+		System.out.println ("Guess a number between 1 and 1000");
+	
+		do{
+			counter++;
+			System.out.print("\nEnter your guess: ");
+			playerGuess= guess.nextInt ();
+			
+			if (playerGuess<computedNumber)
+				System.out.println ("Too low. Try again.");
+			else if (playerGuess>computedNumber)
+				System.out.println ("Too high. Try again.");
+			
+		}while (playerGuess != computedNumber);
+		
+		System.out.println("Congradulations. You guessed the number! It took you " + counter + " tries to find it.");
+		guess.close();
+	}
+}
