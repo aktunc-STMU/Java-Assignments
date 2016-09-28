@@ -1,0 +1,31 @@
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class Division {
+	public static void main (String[]arsg){
+		Scanner scan= new Scanner (System.in);
+		int dividend=0;
+		int divisor=0;
+		
+		System.out.println ("This Program will divide Two numbers:");
+		System.out.println (" Enter the dividend");
+		try{
+			dividend= scan.nextInt();
+			System.out.println ("Enter the divisor");
+			divisor= scan.nextInt();
+			System.out.println (dividend/divisor);
+		}catch (ArithmeticException zero){
+			System.out.println("You have set the divisor equal to zero.\nThis is invalid for division.");
+			System.out.println("Please set the divisor to a non-zero number.");
+			divisor= scan.nextInt();
+		}catch (InputMismatchException var){
+			System.out.println ("You have set the dividend/divisor equal to a variable character.\nThis program only interacts with real numbers.");
+			System.out.println ("--End of Program--");
+			System.exit(0);
+		}
+		
+		System.out.println ("The quotient of the division is " + dividend/divisor);
+		
+		scan.close();
+	}
+}
