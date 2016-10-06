@@ -1,0 +1,32 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class TestScores {
+	public static void main (String []args){
+		Scanner scan = new Scanner (System.in);
+		
+		int students;
+		
+		try{
+		System.out.println("How many students are in the class?");
+		students= scan.nextInt();
+		}catch (InputMismatchException s){
+			System.out.println("You did not enter a valid number for students.\nPlease enter a valid integer number next time.");
+			students= scan.nextInt();
+		}
+		
+		double[] classScores = new double[students];
+		
+		System.out.println ("Enter the scores the students received");
+		
+		for (int index=0; index<students; index++){
+			System.out.println("Student #" + (index+1)+ ":" );
+			classScores[index]= scan.nextInt();
+		}
+		
+		System.out.println("Done recording scores.");
+		scan.close();
+		Scores cs= new Scores (classScores);
+		System.out.println("The average class score is:" + cs.getAverage());
+	}
+}
