@@ -15,7 +15,7 @@ public class Scores {
 		for (int index=0; index<=classScores.length; index++){
 			try{
 				
-			}catch (IllegalArgumentException){
+			}catch (IllegalArgumentException var){
 				System.out.println("The score for student #" + (index+1)+ "is invalid.\nThis score will be ignored");
 				stuRemoved++;
 			}
