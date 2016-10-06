@@ -14,8 +14,10 @@ public class Scores {
 		int stuRemoved=0;
 		for (int index=0; index<=classScores.length; index++){
 			try{
-				
-			}catch (IllegalArgumentException var){
+				if (classScores[index]<0 || classScores[index]>100){
+					throw new IllegalArgumentException ();
+				}
+			}catch (IllegalArgumentException ex){
 				System.out.println("The score for student #" + (index+1)+ "is invalid.\nThis score will be ignored");
 				stuRemoved++;
 			}
