@@ -1,0 +1,34 @@
+import java.lang.Exception;
+
+public class Scores {
+	double average;
+	public Scores(double[] classScores) {
+		double total=0;
+		double average;
+		int stuRemoved=0;
+		for (int index=0; index<=classScores.length; index++){
+			try{
+				
+			}catch (IllegalArgumentException){
+				System.out.println("The score for student #" + (index+1)+ "is invalid.\nThis score will be ignored");
+				stuRemoved++;
+			}
+			total = classScores[index];
+		}
+		average= total/((classScores.length +1) -stuRemoved );
+		setAverage(average);
+	}
+	public double getAverage() {
+		return average;
+	}
+
+	public void setAverage(double average) {
+		this.average = average;
+	}
+}
+
+/*Implement a Scores class. The class constructor should accept an array of scores as its argument. The
+class should have a method that returns the average of the scores. If any score in the array is negative or
+greater than 100, the class should throw an IllegalArgumentException.
+Implement a TestScores class that creates an array and fills it with numbers given by the user. It should
+catch the exception thrown when the user enters an illegal value.*/
