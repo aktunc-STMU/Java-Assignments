@@ -1,3 +1,9 @@
+/*Implement a Scores class. The class constructor should accept an array of scores as its argument. The
+class should have a method that returns the average of the scores. If any score in the array is negative or
+greater than 100, the class should throw an IllegalArgumentException.
+Implement a TestScores class that creates an array and fills it with numbers given by the user. It should
+catch the exception thrown when the user enters an illegal value.*/
+
 import java.lang.Exception;
 
 public class Scores {
@@ -27,8 +33,5 @@ public class Scores {
 	}
 }
 
-/*Implement a Scores class. The class constructor should accept an array of scores as its argument. The
-class should have a method that returns the average of the scores. If any score in the array is negative or
-greater than 100, the class should throw an IllegalArgumentException.
-Implement a TestScores class that creates an array and fills it with numbers given by the user. It should
-catch the exception thrown when the user enters an illegal value.*/
+/*I couldn't figure out how to throw the exception for negative numbers or numbers greater than one. */
+
