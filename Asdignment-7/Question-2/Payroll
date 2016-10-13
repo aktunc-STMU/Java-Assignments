@@ -1,0 +1,55 @@
+
+public class Payroll {
+	String employee;
+	int idNumber;
+	double payRate;
+	double hours ;
+	
+	public String getEmployee() {
+		return employee;
+	}
+	public void setEmployee(String employee) {
+		this.employee = employee;
+	}
+	public int getIdNumber() {
+		return idNumber;
+	}
+	public void setIdNumber(int idNumber) {
+		this.idNumber = idNumber;
+	}
+	public double getPayRate() {
+		return payRate;
+	}
+	public void setPayRate(double payRate) {
+		this.payRate = payRate;
+	}
+	public double getHours() {
+		return hours;
+	}
+	public void setHours(double hours) {
+		this.hours = hours;
+	}
+	public Payroll(String employee, int idNumber) throws EmptyStringName, InvalidIDNumber {
+		super();
+		if (employee==""){
+			throw new EmptyStringName ();
+		}
+		if (idNumber<0){
+			throw new InvalidIDNumber ();
+		}
+		this.employee = employee;
+		this.idNumber = idNumber;
+	}
+	
+	public double GrossPay (double payRate, double hours) throws InvalidRate, InvalidHoursNumber{
+		if (payRate>25 || payRate<0){
+			throw new InvalidRate();
+		}
+		if (hours> 84 || hours<0){
+			throw new InvalidHoursNumber ();
+		}
+		double grossPay= payRate*hours;
+		return grossPay;
+	}
+		
+}
