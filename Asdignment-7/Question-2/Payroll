@@ -35,7 +35,7 @@ public class Payroll {
 			throw new EmptyStringName ();
 		}
 		if (idNumber<0){
-			throw new InvalidIDNumber ();
+			throw new InvalidIDNumber (idNumber);
 		}
 		this.employee = employee;
 		this.idNumber = idNumber;
@@ -43,10 +43,10 @@ public class Payroll {
 	
 	public double GrossPay (double payRate, double hours) throws InvalidRate, InvalidHoursNumber{
 		if (payRate>25 || payRate<0){
-			throw new InvalidRate();
+			throw new InvalidRate(payRate);
 		}
 		if (hours> 84 || hours<0){
-			throw new InvalidHoursNumber ();
+			throw new InvalidHoursNumber (hours);
 		}
 		double grossPay= payRate*hours;
 		return grossPay;
