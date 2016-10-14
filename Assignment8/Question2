@@ -1,0 +1,62 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class CustomFrame extends JFrame{
+	public CustomFrame (){
+		setLayout(null);
+		setLocation (100,200);
+		setSize (745, 600);
+		setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+		
+		JPanel panel= new JPanel();
+		panel.setLayout(null);
+		panel.setBackground (Color.RED);
+		panel.setLocation(25,30);
+		panel.setSize(200,400);
+		add(panel);
+		JLabel label= new JLabel("RED");
+		label.setLocation(125, 10);
+		label.setSize(200,75);
+		add(label);
+		JButton b= new JButton ("RED");
+		b.setLocation(25, 450);
+		b.setSize(200,15);
+		add(b);
+		
+		JPanel panel2= new JPanel();
+		panel2.setLayout(null);
+		panel2.setBackground (Color.BLUE);
+		panel2.setLocation(260,30);
+		panel2.setSize(200, 400);
+		add(panel2);
+		JLabel label2= new JLabel("BLUE");
+		label2.setLocation(260, 260);
+		label2.setSize(200,75);
+		add(label2);
+		JButton b2= new JButton ("BLUE");
+		b2.setLocation(260, 450);
+		b2.setSize(200,15);
+		add(b2);		
+		
+		JPanel panel3= new JPanel();
+		panel3.setLayout(null);
+		panel3.setBackground (Color.YELLOW);
+		panel3.setLocation(495 ,30);
+		panel3.setSize(200, 400);
+		add(panel3);
+		JLabel label3= new JLabel("YELLOW");
+		label3.setLocation(495, 260);
+		label3.setSize(200, 15);
+		add(label3);
+		JButton b3= new JButton ("YELLOW");
+		b3.setLocation(495, 450);
+		b3.setSize(200,15);
+		add(b3);
+		
+		setVisible (true);
+	}
+	public static void main (String []args)  {
+		new CustomFrame();
+		
+	}
+}
