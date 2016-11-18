@@ -1,0 +1,289 @@
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.*;
+
+
+public class BattleshipGame extends JPanel {
+	private static final long serialVersionUID = 1L;
+
+	//Board Variables
+	private int ship1R, ship2R, ship3R, ship4R;
+	private int ship1C, ship2C, ship3C, ship4C;
+	private int attacks, hits=0;
+
+
+	//Creates new Buttons (10 one for each part of ship)
+	JButton s11 = new JButton ();
+	JButton s21 = new JButton ();
+	JButton s22 = new JButton ();
+	JButton s31 = new JButton ();
+	JButton s32 = new JButton ();
+	JButton s33 = new JButton ();
+	JButton s41 = new JButton ();
+	JButton s42 = new JButton ();
+	JButton s43 = new JButton ();
+	JButton s44 = new JButton ();
+
+	public BattleshipGame()
+	{
+		Board();
+
+	}
+
+
+	public void Board()
+	{
+		setLayout(new BorderLayout ());        
+
+		//Creates a title
+		JPanel titlePanel= new JPanel ();
+		titlePanel.setLayout(new GridLayout (2,1));
+		add(titlePanel, BorderLayout.NORTH);
+
+		JLabel title= new JLabel ("ONE MAN BATTLESHIP!", SwingConstants.CENTER);
+		title.setFont(new Font("Arial", Font.BOLD, 30));
+		titlePanel.add(title);
+
+
+		//Color key for user visual
+		JPanel key= new JPanel ();
+		add(key, BorderLayout.WEST);
+		key.setLayout(new GridLayout (3,2));
+		JButton hit= new JButton();
+		hit.setBorder(new Round(10));
+		hit.setBackground(Color.YELLOW);
+
+		key.add(hit);
+		JLabel hitLabel= new JLabel (" = HIT", SwingConstants.CENTER);
+		hitLabel.setFont(new Font ("Arial", Font.BOLD, 20));
+		key.add(hitLabel);
+
+		JButton kill= new JButton();
+		kill.setBorder(new Round(10));
+		kill.setBackground(Color.RED);
+		key.add(kill);
+
+		JLabel killLabel= new JLabel (" = Kill", SwingConstants.CENTER);
+		killLabel.setFont(new Font ("Arial", Font.BOLD, 20));
+		key.add(killLabel);
+
+		JButton miss= new JButton();
+		miss.setBorder(new Round(10));
+		miss.setBackground(Color.CYAN);
+		key.add(miss);
+
+		JLabel missLabel= new JLabel (" = MISS", SwingConstants.CENTER);
+		missLabel.setFont(new Font ("Arial", Font.BOLD, 20));
+		key.add(missLabel);
+
+
+		//CReates actual board game
+		JPanel board = new JPanel ();
+		add(board, BorderLayout.CENTER);
+		board.setLayout(new GridLayout(9, 9) );
+
+		//first sets the labels of the columns
+		board.add(new JLabel(" ", SwingConstants.CENTER));
+		board.add(new JLabel("A", SwingConstants.CENTER));
+		board.add(new JLabel("B", SwingConstants.CENTER));
+		board.add(new JLabel("C", SwingConstants.CENTER));
+		board.add(new JLabel("D", SwingConstants.CENTER));
+		board.add(new JLabel("E", SwingConstants.CENTER));
+		board.add(new JLabel("F", SwingConstants.CENTER));
+		board.add(new JLabel("G", SwingConstants.CENTER));
+		board.add(new JLabel("H", SwingConstants.CENTER));
+
+		//then creates the buttons using array list
+		JButton[][] buttons = new JButton[8][8];
+		for (int i=0; i<(buttons.length); i++)
+		{
+
+			String numLabel;
+			numLabel= "" + i;
+			board.add(new JLabel ("" + numLabel, SwingConstants.CENTER ));
+
+			for(int j=0; j<(buttons[i].length); j++)
+			{
+				buttons[i][j]=(new JButton ());
+				buttons[i][j].setBorder(new Round(10));
+				buttons[i][j].addActionListener( new AttackListener () );
+				board.add(buttons[i][j]);
+			}
+		}
+
+		//uses a method to randomize ship arrangement
+		ship1C= ShipColumn (1);
+		ship2C= ShipColumn (2);
+		ship3C= ShipColumn (3);
+		ship4C= ShipColumn (4);
+
+		int row[]= new int [4];
+		row= ShipRow();
+
+		//Assigns ships
+		s11 = buttons [row[0]][ship1C];
+		s21 = buttons [row[1]][ship2C];
+		s22 = buttons [row[1]][ship2C +1];
+		s31 = buttons [row[2]][ship3C];
+		s32 = buttons [row[2]][ship3C +1];
+		s33 = buttons [row[2]][ship3C +2];
+		s41 = buttons [row[3]][ship4C];
+		s42 = buttons [row[3]][ship4C +1];
+		s43 = buttons [row[3]][ship4C +2];
+		s44 = buttons [row[3]][ship4C +3];
+
+
+
+		setVisible (true);
+	}
+	//To make the board look more like a grid for a game
+	private static class Round implements Border {
+		private int radius;
+
+		Round(int radius) {
+			this.radius = radius;
+		}
+		public Insets getBorderInsets(Component c) {
+			return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
+		}
+		public boolean isBorderOpaque() {
+			return true;
+		}
+		public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+			g.drawRoundRect(x, y, width-1, height-1, radius, radius);
+		}
+	}
+	//accessed when a button is clicked
+	public class AttackListener implements ActionListener {
+		public void actionPerformed(ActionEvent e)
+		{
+			attacks++;
+			//automatically sets to blue
+			((JButton)e.getSource()).setBackground(Color.CYAN);
+
+			//Changes color for ship1
+			if (e.getSource()== s11 && s11.getBackground()!= Color.YELLOW){
+				s11.setBackground(Color.RED);
+				hits++;
+			}
+
+			//Changes color for ship2
+			else if (e.getSource()==s21 || e.getSource()==s22){
+				if (e.getSource()==s21 && s21.getBackground()!= Color.YELLOW){
+					s21.setBackground(Color.YELLOW);
+					hits++;
+				}else if (e.getSource()==s22 && s22.getBackground()!= Color.YELLOW){
+					s22.setBackground(Color.YELLOW);
+					hits++;
+				}
+				Color color1= s21.getBackground();
+				Color color2= s22.getBackground();
+				if (color1== Color.YELLOW && color2== Color.YELLOW){
+					s21.setBackground(Color.RED);
+					s22.setBackground(Color.RED);
+
+				}
+			}
+
+			//Changes color for ship3
+			else if (e.getSource()==s31 || e.getSource()==s32 || e.getSource()==s33){
+				if (e.getSource()==s31 && s31.getBackground()!= Color.YELLOW){
+					s31.setBackground(Color.YELLOW);
+					hits++;
+				}else if (e.getSource()==s32 && s32.getBackground()!= Color.YELLOW){
+					s32.setBackground(Color.YELLOW);
+					hits++;
+				}else if (e.getSource()==s33 && s33.getBackground()!= Color.YELLOW){
+					s33.setBackground(Color.YELLOW);
+					hits++;
+				}
+				Color color1= s31.getBackground();
+				Color color2= s32.getBackground();
+				Color color3= s33.getBackground();
+				if (color1== Color.YELLOW && color2== Color.YELLOW && color3== Color.YELLOW){
+					s31.setBackground(Color.RED);
+					s32.setBackground(Color.RED);
+					s33.setBackground(Color.RED);
+
+				}
+			}
+
+			//Changes color for ship4
+			else if (e.getSource()==s41 || e.getSource()==s42 || e.getSource()==s43 || e.getSource()==s44){
+				if (e.getSource()==s41 && s41.getBackground()!= Color.YELLOW){
+					s41.setBackground(Color.YELLOW);
+					hits++;
+				}else if (e.getSource()==s42 && s42.getBackground()!= Color.YELLOW){
+					s42.setBackground(Color.YELLOW);
+					hits++;
+				}else if (e.getSource()==s43 && s43.getBackground()!= Color.YELLOW){
+					s43.setBackground(Color.YELLOW);
+					hits++;
+				}else if (e.getSource()==s44 && s44.getBackground()!= Color.YELLOW){
+					s44.setBackground(Color.YELLOW);
+					hits++;
+				}
+				Color color1= s41.getBackground();
+				Color color2= s42.getBackground();
+				Color color3= s43.getBackground();
+				Color color4= s44.getBackground();
+				if (color1== Color.YELLOW && color2== Color.YELLOW  && color3== Color.YELLOW && color4== Color.YELLOW){
+					s41.setBackground(Color.RED);
+					s42.setBackground(Color.RED);
+					s43.setBackground(Color.RED);
+					s44.setBackground(Color.RED);
+				}
+			}
+			//if all ships are hit it show a message dialog
+			if (hits== 10){
+				JOptionPane.showMessageDialog(null, "YOU HAVE COMPLETED THE GAME !!\nIT TOOK YOU " + attacks + " TRIES TO COMPLETE THIS GAME.");
+			}
+		}
+	}
+
+	//Randomize the rows in which the ships are located
+	public int[] ShipRow ()
+	{
+		int rows[]= new int [4];
+
+		ship1R = (int)(Math.random()*7);
+		do{
+			ship2R = (int)(Math.random()*7);
+		}while(ship2R==ship1R);
+		do{
+			ship3R = (int)(Math.random()*7);
+		}while(ship2R==ship1R || ship3R==ship2R);
+		do{
+			ship4R = (int)(Math.random()*7);
+		}while(ship4R==ship1R || ship4R==ship2R || ship4R==ship3R);
+
+		rows[0]= ship1R;
+		rows[1]= ship2R;
+		rows[2]= ship3R;
+		rows[3]= ship4R;
+
+		return rows;
+	}
+
+	//set the columns for the ships
+	public int ShipColumn(int size)
+	{
+		int shipC;
+		int spaces = 8-size;
+
+		shipC = (int)(Math.random()* spaces);
+
+		return (shipC);
+	}
+
+	public static void main(String []args)
+	{
+		JFrame frame = new JFrame("Battleship");
+		frame.add(new BattleshipGame());
+		frame.setSize(900, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);	
+	}
+
+}
